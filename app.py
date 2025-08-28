@@ -5,7 +5,7 @@ import os
 import google.generativeai as genai
 from pdf2image import convert_from_bytes
 import pytesseract
-from backend import config
+import config
 
 app = Flask(__name__, template_folder="backend/templates", static_folder="backend/static")
 
