@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    
+    <title>About Me</title>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-27LRBFJL0Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-27LRBFJL0Q');
+</script>
+
+    <!-- ✅ Favicon Links -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* 🌈 New Soft Wave Background */
+            background: linear-gradient(270deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+            background-size: 800% 800%;
+            animation: waveBG 18s ease infinite;
+        }
+
+        @keyframes waveBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .navbar {
+            background-color: rgba(106, 27, 154, 0.9);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            backdrop-filter: blur(6px); /* glass effect */
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #4a148c;
+        }
+
+        p {
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #6a1b9a;
+        }
+    </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348521072257318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- ✅ Navbar -->
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacypolicy">Privacy Policy</a>
+        
+    </div>
+
+    <!-- ✅ About Section -->
+    <main>
+        <div class="container">
+            <h2>About the Creator</h2>
+            <p>Hello! 👋 I am <span class="highlight">Bhanu Sesha Sai</span>, the creator of this Resume Analyzer website.</p>
+            <p>
+                I’m currently pursuing <span class="highlight">B.Tech in CSE (AI/ML)</span> at Lovely Professional University.  
+                I’m passionate about <span class="highlight">Artificial Intelligence, Machine Learning, and Software Development</span>.  
+                <span class="highlight">"I don't always test my code, but when I do, I do it in production." </span>
+            </p>
+            <p>
+                This project is one of the steps in my journey to learn and grow as a developer 🚀.  
+                I believe in building things that can help others and improve real-life productivity.
+            </p>
+        </div>
+    </main>
+</body>
+<footer style="
+  background: rgba(76, 175, 80, 0.9);
+  color: white;
+  text-align: center;
+  padding: 15px 20px;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(6px);
+  margin-top: auto;
+">
+  <p style="margin: 5px 0;">&copy; 2025 Resume Analyzer. All Rights Reserved.</p>
+  <p style="margin: 5px 0; font-size: 14px;">
+    Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
+  </p>
+  <!-- <div style="margin-top: 5px;">
+    <a href="#" style="color:white; margin:0 8px; text-decoration:none;">Twitter</a>|
+    <a href="#" style="color:white; margin:0 8px; text-decoration:none;">LinkedIn</a>|
+    <a href="#" style="color:white; margin:0 8px; text-decoration:none;">GitHub</a>
+  </div> -->
+</footer>
+</html>

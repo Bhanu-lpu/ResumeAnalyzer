@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Resume Analyzer | Free AI Resume Feedback Tool</title>
+<meta name="description" content="Free AI Resume Analyzer for students and job seekers. Upload your resume PDF and get instant feedback on strengths, weaknesses, and suggestions for your target job role.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="NsgeqAZSIry1jXdU0mQmSdzep4gVutx5e8dvT2RDVnY" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-27LRBFJL0Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-27LRBFJL0Q');
+</script>
+
+<!-- ✅ Add Favicon -->
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/shepherd.js/dist/css/shepherd.css" />
+<script src="https://cdn.jsdelivr.net/npm/shepherd.js/dist/js/shepherd.min.js"></script>
+
+
+<style>
+/* Background Particles Container */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: #0d0d0d;
+    overflow: hidden;
+}
+
+/* Force canvas to fill screen on mobile */
+#particles-js canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    color: #333;
+    background: transparent;
+}
+
+/* Navbar */
+.navbar {
+    width: 100%;
+    background: #4CAF50;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+.navbar a:hover { color: #e0f7fa; }
+
+/* Container */
+.container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    max-width: 700px;
+    width: 90%;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+    margin: 100px 0; /* spacing below navbar */
+}
+
+h1 { text-align: center; margin-bottom: 10px; font-size: 32px; color:#222; }
+.sub-caption {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Inputs */
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+input[type="text"]:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    outline: none;
+}
+
+/* Drag & Drop */
+#drop-area {
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: #fafafa;
+}
+#drop-area.hover { border-color: #4CAF50; background: #e8f5e9; }
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+button:hover { background: #45a049; }
+
+/* Cards */
+.section-card {
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+.section-card h2 { margin-top: 0; font-size: 18px; }
+.strengths { background: #e6f9f0; border-left: 6px solid #4CAF50; }
+.weaknesses { background: #fff4e6; border-left: 6px solid #FF9800; }
+.suggestions { background: #e6f0ff; border-left: 6px solid #2196F3; }
+
+/* Hover effect */
+.section-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+/* Alerts */
+#message {
+    display: none;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+#message.success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+#message.error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+.loading { text-align: center; font-style: italic; margin-bottom: 15px; }
+.progress-bar {
+    width: 0%; height: 5px; background-color: #4CAF50;
+    margin-bottom: 20px; border-radius: 5px; transition: width 0.3s;
+}
+
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348521072257318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacypolicy">Privacy Policy</a>
+        <a href="#" id="startTourBtn" style="background: rgba(255,255,255,0.2); padding: 6px 12px; border-radius:6px;">🚀 Start Tour</a>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Headline + Sub-caption -->
+        <h1>Analyze. Improve. Get Hired.</h1>
+        <p class="sub-caption">AI-powered resume feedback to help you land your dream job.</p>
+
+        <form id="resumeForm">
+            <input type="text" id="role" placeholder="Enter job role (optional)" />
+            <div id="drop-area">Drag & Drop PDF here or click to browse</div>
+            <input type="file" id="resume" accept=".pdf" style="display:none;" />
+
+            <div class="progress-bar" id="progress"></div>
+            <button type="submit">Analyze Resume</button>
+            <button type="button" id="clearBtn">Clear</button>
+            <button type="button" id="downloadBtn">Download Feedback as PDF</button>
+        </form>
+
+        <div id="message"></div>
+        <div id="result">
+            <p class="loading" id="loading" style="display:none;">Analyzing resume, please wait...</p>
+            <div id="strengths" class="section-card strengths"><h2>🌟 Strengths</h2></div>
+            <div id="weaknesses" class="section-card weaknesses"><h2>⚠️ Weaknesses</h2></div>
+            <div id="suggestions" class="section-card suggestions"><h2>💡 Suggestions</h2></div>
+        </div>
+    </div>
+
+    <!-- ✅ Footer -->
+    <footer style="
+      background: rgba(76, 175, 80, 0.9);
+      color: white;
+      text-align: center;
+      padding: 15px 20px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(6px);
+      margin-top: auto;
+    ">
+      <p style="margin: 5px 0;">&copy; 2025 Resume Analyzer. All Rights Reserved.</p>
+      <p style="margin: 5px 0; font-size: 14px;">
+        Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
+      </p>
+    </footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+/* Initialize Particles */
+particlesJS("particles-js", {
+  "particles": {
+    "number": { "value": 80 },
+    "size": { "value": 3 },
+    "move": { "speed": 2 },
+    "line_linked": { "enable": true, "opacity": 0.3 },
+    "color": { "value": "#ffffff" }
+  },
+  "interactivity": {
+    "events": {
+      "onhover": { "enable": true, "mode": "repulse" }
+    }
+  }
+});
+</script>
+
+<script>
+const dropArea = document.getElementById('drop-area');
+const fileInput = document.getElementById('resume');
+let analysisText = "";
+
+/* Drag & Drop */
+dropArea.addEventListener('click', () => fileInput.click());
+dropArea.addEventListener('dragover', e => { e.preventDefault(); dropArea.classList.add('hover'); });
+dropArea.addEventListener('dragleave', () => dropArea.classList.remove('hover'));
+dropArea.addEventListener('drop', e => {
+    e.preventDefault();
+    dropArea.classList.remove('hover');
+    const file = e.dataTransfer.files[0];
+    if(file && file.type === "application/pdf") fileInput.files = e.dataTransfer.files;
+});
+
+/* Message helper */
+function showMessage(msg, type="success") {
+    const message = document.getElementById("message");
+    message.innerText = msg;
+    message.className = type;
+    message.style.display = "block";
+    setTimeout(() => message.style.display = "none", 3000);
+}
+
+/* Form submit */
+document.getElementById('resumeForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const role = document.getElementById('role').value || "Software Engineer";
+    const file = fileInput.files[0];
+    if (!file) { showMessage("Please upload a PDF resume!", "error"); return; }
+
+    const formData = new FormData();
+    formData.append("role", role);
+    formData.append("resume", file);
+
+    document.getElementById('loading').style.display = "block";
+    const progress = document.getElementById('progress');
+    progress.style.width = "0%";
+
+    document.getElementById('strengths').innerHTML = "<h2>🌟 Strengths</h2>";
+    document.getElementById('weaknesses').innerHTML = "<h2>⚠️ Weaknesses</h2>";
+    document.getElementById('suggestions').innerHTML = "<h2>💡 Suggestions</h2>";
+
+    try {
+        const response = await fetch('/analyze', { method: 'POST', body: formData });
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        const text = await response.text();
+        let data;
+        try { data = JSON.parse(text); } 
+        catch { showMessage("Backend returned invalid JSON!", "error"); return; }
+
+        analysisText = data.analysis.replace(/\\n/g, "\n");
+
+        const strengthsMatch = analysisText.match(/1\. Strengths:([\s\S]*?)(?=2\. Weaknesses:|$)/);
+        const weaknessesMatch = analysisText.match(/2\. Weaknesses:([\s\S]*?)(?=3\. Suggestions|$)/);
+        const suggestionsMatch = analysisText.match(/3\. Suggestions.*?:([\s\S]*)/);
+
+        const renderList = text => "<ul><li>" + (text ? text.trim().replace(/\n/g,"</li><li>") : "No data") + "</li></ul>";
+
+        document.getElementById('strengths').innerHTML += renderList(strengthsMatch ? strengthsMatch[1] : "");
+        document.getElementById('weaknesses').innerHTML += renderList(weaknessesMatch ? weaknessesMatch[1] : "");
+        document.getElementById('suggestions').innerHTML += renderList(suggestionsMatch ? suggestionsMatch[1] : "");
+
+        showMessage("✅ Analysis completed!", "success");
+
+    } catch (error) {
+        showMessage("❌ Error analyzing resume: " + error, "error");
+    } finally {
+        document.getElementById('loading').style.display = "none";
+        progress.style.width = "100%";
+        setTimeout(() => progress.style.width = "0%", 500);
+    }
+});
+
+/* Clear */
+document.getElementById('clearBtn').addEventListener('click', () => {
+    fileInput.value = "";
+    document.getElementById('role').value = "";
+    document.getElementById('strengths').innerHTML = "<h2>🌟 Strengths</h2>";
+    document.getElementById('weaknesses').innerHTML = "<h2>⚠️ Weaknesses</h2>";
+    document.getElementById('suggestions').innerHTML = "<h2>💡 Suggestions</h2>";
+    analysisText = "";
+});
+
+/* Download PDF */
+document.getElementById('downloadBtn').addEventListener('click', () => {
+    if(!analysisText) { showMessage("No feedback to download!", "error"); return; }
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFontSize(12);
+    doc.text("Resume Analyzer Feedback\n\n", 10, 10);
+    doc.text(analysisText, 10, 20);
+    doc.save("resume_feedback.pdf");
+});
+</script>
+<script>
+// Initialize Shepherd Tour
+const tour = new Shepherd.Tour({
+    defaultStepOptions: { scrollTo: true, cancelIcon: { enabled: true } }
+});
+// Step 1 - Navbar overall
+tour.addStep({
+  text: 'This is the main navigation bar. You can visit different pages from here.',
+  attachTo: { element: '.navbar', on: 'bottom' },
+  buttons: [
+    { text: 'Next', action: tour.next }
+  ]
+});
+
+// Step 1a - Home link
+tour.addStep({
+  text: 'Click "Home" to return to the main page anytime.',
+  attachTo: { element: '.navbar a[href="/"]', on: 'bottom' },
+  buttons: [
+    { text: 'Back', action: tour.back },
+    { text: 'Next', action: tour.next }
+  ]
+});
+
+// Step 1b - About link
+tour.addStep({
+  text: 'Click "About" to learn more about this website and its purpose.',
+  attachTo: { element: '.navbar a[href="/about"]', on: 'bottom' },
+  buttons: [
+    { text: 'Back', action: tour.back },
+    { text: 'Next', action: tour.next }
+  ]
+});
+
+// Step 1c - Contact link
+tour.addStep({
+  text: 'Click "Contact" to reach out or send your queries.',
+  attachTo: { element: '.navbar a[href="/contact"]', on: 'bottom' },
+  buttons: [
+    { text: 'Back', action: tour.back },
+    { text: 'Next', action: tour.next }
+  ]
+});
+
+// Step 1d - Privacy Policy link
+tour.addStep({
+  text: 'Click "Privacy Policy" to read how we handle your data safely.',
+  attachTo: { element: '.navbar a[href="/privacypolicy"]', on: 'bottom' },
+  buttons: [
+    { text: 'Back', action: tour.back },
+    { text: 'Next', action: tour.next }
+  ]
+});
+
+
+tour.addStep({
+    id: 'step1',
+    text: 'Welcome to Resume Analyzer! Let us take a quick tour.',
+    buttons: [{ text: 'Next', action: tour.next }]
+});
+tour.addStep({
+    id: 'step2',
+    text: 'Enter your desired job role here.',
+    attachTo: { element: '#role', on: 'bottom' },
+    buttons: [{ text: 'Next', action: tour.next }]
+});
+tour.addStep({
+    id: 'step3',
+    text: 'Upload your PDF resume here by drag & drop or click.',
+    attachTo: { element: '#drop-area', on: 'bottom' },
+    buttons: [{ text: 'Next', action: tour.next }]
+});
+tour.addStep({
+    id: 'step4',
+    text: 'Click Analyze Resume to get AI feedback.',
+    attachTo: { element: 'button[type="submit"]', on: 'bottom' },
+    buttons: [{ text: 'Finish', action: tour.complete }]
+});
+
+// Auto-start first time
+if (!localStorage.getItem("tourDone")) {
+    tour.start();
+    localStorage.setItem("tourDone", "true");
+}
+
+// Button to manually start tour
+document.getElementById('startTourBtn').addEventListener('click', () => { tour.start(); });
+</script>
+</body>
+</html>

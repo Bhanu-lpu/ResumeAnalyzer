@@ -1,0 +1,10 @@
+runtime: python310  # Python 3.10
+entrypoint: gunicorn -b :$PORT app:app  # app.py and app object
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 2
+
+handlers:
+  - url: /.*
+    script: auto
