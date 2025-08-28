@@ -29,6 +29,120 @@
 
 
 <style>
+  
+/* Floating chat icon */
+#chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            transition: background 0.3s;
+            z-index: 1000;
+        }
+        #chat-icon:hover { background-color: #0056b3; }
+
+        /* Chat Box */
+        #chat-box {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 350px;
+            max-height: 450px;
+            background: #fefefe;
+            border-radius: 15px;
+            border: 1px solid #ccc;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            font-family: Arial, sans-serif;
+            z-index: 999;
+        }
+
+        /* Messages Area */
+        #chat-messages {
+            padding: 15px;
+            height: 360px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+
+        /* Scrollbar */
+        #chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-messages::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
+
+        /* Input Container */
+        #chat-input-container {
+            display: flex;
+            border-top: 1px solid #ddd;
+        }
+
+        #chat-input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+        }
+
+        #chat-box button {
+            width: 80px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        #chat-box button:hover { background-color: #0056b3; }
+
+        /* Chat bubbles */
+        .message {
+            margin-bottom: 10px;
+            padding: 10px 14px;
+            border-radius: 15px;
+            max-width: 80%;
+            word-wrap: break-word;
+            clear: both;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            float: right;
+            text-align: right;
+        }
+
+        .bot-message {
+            background-color: #e5e5ea;
+            color: black;
+            float: left;
+            text-align: left;
+        }
+        @keyframes pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,123,255,0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(0,123,255,0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0,123,255,0); }
+}
+
+#chat-icon.pulse {
+  animation: pulse 1.5s infinite;
+}
+
 /* Background Particles Container */
 #particles-js {
     position: fixed;
@@ -183,6 +297,22 @@ button:hover { background: #45a049; }
     margin-bottom: 20px; border-radius: 5px; transition: width 0.3s;
 }
 
+#chat-icon {
+         position: fixed; bottom: 20px; right: 20px;
+         background: #007bff; color: white; width: 60px; height: 60px;
+         border-radius: 50%; text-align: center; line-height: 60px;
+         font-size: 30px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+      }
+      #chat-box {
+         position: fixed; bottom: 90px; right: 20px;
+         width: 300px; max-height: 400px; background: white;
+         border: 1px solid #ccc; border-radius: 10px;
+         display: none; flex-direction: column;
+         box-shadow: 0 4px 8px rgba(0,0,0,0.2); overflow: hidden;
+      }
+      #chat-messages { padding: 10px; height: 300px; overflow-y: auto; font-size: 14px; }
+      #chat-input { width: 70%; padding: 5px; border: 1px solid #ccc; border-radius: 5px; }
+      #chat-box button { width: 25%; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
 @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348521072257318"
@@ -224,25 +354,131 @@ button:hover { background: #45a049; }
             <div id="strengths" class="section-card strengths"><h2>🌟 Strengths</h2></div>
             <div id="weaknesses" class="section-card weaknesses"><h2>⚠️ Weaknesses</h2></div>
             <div id="suggestions" class="section-card suggestions"><h2>💡 Suggestions</h2></div>
+            <!-- 📢 Announcements Box -->
+<div class="announcements-box">
+  <h3>📢 Latest Announcements</h3>
+  <ul id="announcements-list"></ul>
+</div>
+
+   <div id="chat-icon" onclick="toggleChat()">💬</div>
+
+<div id="chat-box">
+  <div id="chat-messages"></div>
+  <div id="chat-input-container">
+    <input id="chat-input" type="text" placeholder="Type your message...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+function toggleChat() {
+            let box = document.getElementById("chat-box");
+            box.style.display = box.style.display === "flex" ? "none" : "flex";
+        }
+
+        function sendMessage() {
+            let input = document.getElementById("chat-input");
+            let msg = input.value.trim();
+            if (!msg) return;
+
+            let messages = document.getElementById("chat-messages");
+            messages.innerHTML += `<div class="message user-message">${msg}</div>`;
+            input.value = "";
+            messages.scrollTop = messages.scrollHeight;
+
+            // Call backend Gemini API
+            fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: msg })
+            })
+            .then(res => res.json())
+            .then(data => {
+                messages.innerHTML += `<div class="message bot-message">${data.reply}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            });
+        }
+</script>
+
+<script>
+async function loadAnnouncements() {
+  try {
+    const res = await fetch("/api/announcements");
+    const data = await res.json();
+
+    let list = document.getElementById("announcements-list");
+    list.innerHTML = "";
+
+    if (data.length === 0) {
+      list.innerHTML = "<li>No announcements available</li>";
+      return;
+    }
+
+    data.forEach(item => {
+      let li = document.createElement("li");
+      li.innerHTML = `<strong>${item.title}</strong> - ${item.details} <br><small>${item.date}</small>`;
+      list.appendChild(li);
+    });
+  } catch (err) {
+    console.error("Error loading announcements:", err);
+  }
+}
+loadAnnouncements();
+</script>
+
         </div>
     </div>
 
     <!-- ✅ Footer -->
     <footer style="
-      background: rgba(76, 175, 80, 0.9);
-      color: white;
-      text-align: center;
-      padding: 15px 20px;
-      position: relative;
-      z-index: 1;
-      backdrop-filter: blur(6px);
-      margin-top: auto;
-    ">
-      <p style="margin: 5px 0;">&copy; 2025 Resume Analyzer. All Rights Reserved.</p>
-      <p style="margin: 5px 0; font-size: 14px;">
-        Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
-      </p>
-    </footer>
+  background: rgba(76, 175, 80, 0.95);
+  color: white;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(6px);
+">
+
+  <!-- Column 1: About -->
+  <div style="flex:1; min-width:250px;">
+    <h3 style="margin-bottom: 15px;">What is Resume Analyzer?</h3>
+    <p style="line-height: 1.5; color: #e0f7fa;">
+      Resume Analyzer is a free AI-powered tool that helps students and job seekers improve their resumes. Upload your PDF and get instant feedback on strengths, weaknesses, and actionable suggestions to land your dream job.
+    </p>
+    <p style="margin-top: 15px; font-size: 14px; color: #d0f0e0;">
+      &copy; 2025 Resume Analyzer. All Rights Reserved.
+    </p>
+  </div>
+
+  <!-- Column 2: Links + Contact -->
+  <div style="flex:1; min-width:250px;">
+    <h3 style="margin-bottom: 15px;">Quick Links</h3>
+    <ul style="list-style:none; padding:0; line-height:2;">
+      <li><a href="/" style="color:white; text-decoration:none;">Home</a></li>
+      <li><a href="/about" style="color:white; text-decoration:none;">About</a></li>
+      <li><a href="/contact" style="color:white; text-decoration:none;">Contact</a></li>
+      <li><a href="/privacypolicy" style="color:white; text-decoration:none;">Privacy Policy</a></li>
+    </ul>
+
+    <h3 style="margin:20px 0 10px 0;">Connect with us</h3>
+    <div style="display:flex; gap:15px;">
+      <a href="www.linkedin.com/in/bhanu-sesha-sai-" target="_blank" style="color:white; font-size:20px;">🔗</a>
+      <a href="https://twitter.com" target="_blank" style="color:white; font-size:20px;">🐦</a>
+      <a href="https://instagram.com" target="_blank" style="color:white; font-size:20px;">📸</a>
+    </div>
+  </div>
+
+  <!-- Optional small footer note -->
+  <div style="width:100%; text-align:center; margin-top:20px; font-size:14px; color:#d0f0e0;">
+    Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
+  </div>
+</footer>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
@@ -436,7 +672,35 @@ tour.addStep({
     id: 'step4',
     text: 'Click Analyze Resume to get AI feedback.',
     attachTo: { element: 'button[type="submit"]', on: 'bottom' },
-    buttons: [{ text: 'Finish', action: tour.complete }]
+    buttons: [{ text: 'Next', action: tour.next }]
+});
+tour.addStep({
+    id: 'step5',
+    text: 'Check out the announcements for the more information about top MNC companies',
+    attachTo: { element: 'button[type="submit"]', on: 'bottom' },
+    buttons: [{ text: 'Next', action: tour.next }]
+});
+tour.addStep({
+    id: 'chatbot-step',
+    text: 'Click this 💬 icon at the bottom-right to chat with our AI assistant for quick guidance and resume tips!',
+    attachTo: { element: '#chat-icon', on: 'top' },
+    buttons: [
+        { text: 'Back', action: tour.back },
+        { text: 'Finish', action: tour.complete }
+    ],
+    when: {
+        show: function() {
+            let chatBox = document.getElementById("chat-box");
+            chatBox.style.display = "flex";
+
+            // Add pulse animation
+            document.getElementById("chat-icon").classList.add("pulse");
+        },
+        hide: function() {
+            // Remove pulse when step ends
+            document.getElementById("chat-icon").classList.remove("pulse");
+        }
+    }
 });
 
 // Auto-start first time

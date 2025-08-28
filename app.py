@@ -5,13 +5,18 @@ import os
 import google.generativeai as genai
 from pdf2image import convert_from_bytes
 import pytesseract
-import config
+
+import json
+import requests
+from dotenv import load_dotenv
+load_dotenv()  # ✅ this will load your .env file
+
 
 app = Flask(__name__, template_folder="backend/templates", static_folder="backend/static")
 
 CORS(app)
 
-
+NEWS_API_KEY = os.getenv("NEWS_API_KEY")  # put your key in .env file
 # Homepage route
 @app.route("/")
 def home():
@@ -32,10 +37,8 @@ from flask import Response
 def robots_txt():
     return Response("User-agent: *\nAllow: /", mimetype="text/plain")
 
-
-
 # Configure Gemini API
-genai.configure(api_key=config.GEMINI_API_KEY)
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
 def extract_text_from_pdf(file):
     """Extract text from uploaded PDF with fallback OCR for scanned PDFs"""
@@ -90,6 +93,28 @@ Use short sentences or bullet points suitable for students.
 
     except Exception as e:
         return jsonify({"analysis": f"❌ Error generating feedback: {str(e)}"})
+    
+@app.route("/api/announcements")
+def api_announcements():
+    try:
+        with open("backend/announcements.json", "r") as f:
+            data = json.load(f)
+        return jsonify(data)
+    except Exception as e:
+        return jsonify([])
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    user_msg = request.json["message"]
+
+    # Create model instance
+    model = genai.GenerativeModel("gemini-1.5-flash")
+
+    # Generate reply
+    response = model.generate_content(user_msg)
+
+    return jsonify({"reply": response.text})
+
 
 @app.route("/test", methods=["POST"])
 def test():

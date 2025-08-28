@@ -177,20 +177,54 @@
 
   <!-- Footer -->
   <footer style="
-    background: rgba(76, 175, 80, 0.9);
-    color: white;
-    text-align: center;
-    padding: 15px 20px;
-    position: relative;
-    z-index: 1;
-    backdrop-filter: blur(6px);
-    margin-top: auto;
-  ">
-    <p style="margin: 5px 0;">&copy; 2025 Resume Analyzer. All Rights Reserved.</p>
-    <p style="margin: 5px 0; font-size: 14px;">
-      Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
+  background: rgba(76, 175, 80, 0.95);
+  color: white;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(6px);
+  
+">
+
+  <!-- Column 1: About -->
+  <div style="flex:1; min-width:250px;">
+    <h3 style="margin-bottom: 15px;">What is Resume Analyzer?</h3>
+    <p style="line-height: 1.5; color: #e0f7fa;">
+      Resume Analyzer is a free AI-powered tool that helps students and job seekers improve their resumes. Upload your PDF and get instant feedback on strengths, weaknesses, and actionable suggestions to land your dream job.
     </p>
-  </footer>
+    <p style="margin-top: 15px; font-size: 14px; color: #d0f0e0;">
+      &copy; 2025 Resume Analyzer. All Rights Reserved.
+    </p>
+  </div>
+
+  <!-- Column 2: Links + Contact -->
+  <div style="flex:1; min-width:250px;">
+    <h3 style="margin-bottom: 15px;">Quick Links</h3>
+    <ul style="list-style:none; padding:0; line-height:2;">
+      <li><a href="/" style="color:white; text-decoration:none;">Home</a></li>
+      <li><a href="/about" style="color:white; text-decoration:none;">About</a></li>
+      <li><a href="/contact" style="color:white; text-decoration:none;">Contact</a></li>
+      <li><a href="/privacypolicy" style="color:white; text-decoration:none;">Privacy Policy</a></li>
+    </ul>
+
+    <h3 style="margin:20px 0 10px 0;">Connect with us</h3>
+    <div style="display:flex; gap:15px;">
+      <a href="https://linkedin.com" target="_blank" style="color:white; font-size:20px;">🔗</a>
+      <a href="https://twitter.com" target="_blank" style="color:white; font-size:20px;">🐦</a>
+      <a href="https://instagram.com" target="_blank" style="color:white; font-size:20px;">📸</a>
+    </div>
+  </div>
+
+  <!-- Optional small footer note -->
+  <div style="width:100%; text-align:center; margin-top:20px; font-size:14px; color:#d0f0e0;">
+    Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
+  </div>
+</footer>
+
 
   <!-- ✅ Scripts for Particles -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
