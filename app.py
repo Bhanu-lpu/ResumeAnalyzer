@@ -117,6 +117,10 @@ def chat():
 @app.route("/faq")
 def faq():
     return render_template("faq.html")
+@app.route("/blog")
+def blog():
+    return render_template("blog.html")
+
 
 
 

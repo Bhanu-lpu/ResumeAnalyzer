@@ -1,175 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>About Me</title>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-27LRBFJL0Q"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-27LRBFJL0Q');
-    </script>
+  <meta charset="UTF-8">
+  <title>About Us | Resume Analyzer</title>
+  <meta name="description" content="Learn more about Resume Analyzer, the free AI-powered tool that helps students and job seekers improve their resumes.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- ✅ Favicon Links -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
-    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            background: linear-gradient(270deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
-            background-size: 800% 800%;
-            animation: waveBG 18s ease infinite;
-        }
+  <style>
+    /* Background Particles */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: #0d0d0d;
+      overflow: hidden;
+    }
 
-        @keyframes waveBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: #333;
+    }
 
-        .navbar {
-            background-color: rgba(106, 27, 154, 0.9);
-            padding: 15px;
-            display: flex;
-            justify-content: center;
-        }
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      background: #4CAF50;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .navbar a:hover { color: #e0f7fa; }
 
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: bold;
-        }
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 80px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      position: relative;
+      z-index: 1;
+    }
 
-        .navbar a:hover { text-decoration: underline; }
+    h1, h2 {
+      text-align: center;
+      color: #222;
+    }
 
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 50px;
-            padding: 50px 20px;
-        }
+    p {
+      line-height: 1.6;
+      color: #444;
+      margin-bottom: 20px;
+    }
 
-        .container {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            width: 90%;
-            max-width: 600px;
-            text-align: center;
-            backdrop-filter: blur(6px);
-        }
-
-        h2 {
-            margin-bottom: 15px;
-            color: #4a148c;
-        }
-
-        p {
-            color: #333;
-            line-height: 1.6;
-        }
-
-        .highlight {
-            font-weight: bold;
-            color: #6a1b9a;
-        }
-
-        /* Why Choose Section */
-        .why-choose {
-            padding: 40px 20px;
-            max-width: 900px;
-            width: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-        }
-
-        .why-card {
-            flex: 1;
-            min-width: 250px;
-            background:white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow:0 5px 15px rgba(0,0,0,0.1);
-            text-align:center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .why-card:hover {
-            transform: translateY(-5px);
-            box-shadow:0 10px 25px rgba(0,0,0,0.2);
-        }
-
-        .why-card h3 { margin-bottom:10px; color:#4CAF50; }
-
-        .why-card p { line-height:1.5; color:#555; }
-
-    </style>
-</head>
-<body>
-    <!-- ✅ Navbar -->
-    <div class="navbar">
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-        <a href="/privacypolicy">Privacy Policy</a>
-        <a href="/faq">FAQs</a>
-    </div>
-
-    <!-- ✅ About Section -->
-    <main>
-        <div class="container">
-            <h2>About the Creator</h2>
-            <p>Hello! 👋 I am <span class="highlight">Bhanu Sesha Sai</span>, the creator of this Resume Analyzer website.</p>
-            <p>
-                I’m currently pursuing <span class="highlight">B.Tech in CSE (AI/ML)</span> at Lovely Professional University.  
-                I’m passionate about <span class="highlight">Artificial Intelligence, Machine Learning, and Software Development</span>.  
-                <span class="highlight">"I don't always test my code, but when I do, I do it in production."</span>
-            </p>
-            <p>
-                This project is one of the steps in my journey to learn and grow as a developer 🚀.  
-                I believe in building things that can help others and improve real-life productivity.
-            </p>
-        </div>
-
-        <!-- ✅ Why Choose Section -->
-        <section class="why-choose">
-            <div class="why-card">
-                <h3>⚡ Fast & AI-Powered</h3>
-                <p>Get instant, actionable feedback on your resume using cutting-edge AI technology.</p>
-            </div>
-            <div class="why-card">
-                <h3>🤖 Easy to Use</h3>
-                <p>Upload your PDF resume in seconds and get feedback without complicated forms or signups.</p>
-            </div>
-            <div class="why-card">
-                <h3>💡 Comprehensive Feedback</h3>
-                <p>Receive strengths, weaknesses, and tailored suggestions to improve your chances of getting hired.</p>
-            </div>
-            <div class="why-card">
-                <h3>🎯 Free & Accessible</h3>
-                <p>Completely free for students and job seekers. Accessible from any device, anytime.</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- ✅ Footer -->
-    <footer style="
+    /* Footer */
+    footer {
       background: rgba(76, 175, 80, 0.95);
       color: white;
       padding: 40px 20px;
@@ -179,42 +83,94 @@
       gap: 30px;
       position: relative;
       z-index: 1;
-      backdrop-filter: blur(6px);
-    ">
+    }
+    footer h3 { margin-bottom: 15px; }
+    footer a { color: white; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <!-- Particles Background -->
+  <div id="particles-js"></div>
 
-      <!-- Column 1: About -->
-      <div style="flex:1; min-width:250px;">
-        <h3 style="margin-bottom: 15px;">What is Resume Analyzer?</h3>
-        <p style="line-height: 1.5; color: #e0f7fa;">
-          Resume Analyzer is a free AI-powered tool that helps students and job seekers improve their resumes. Upload your PDF and get instant feedback on strengths, weaknesses, and actionable suggestions to land your dream job.
-        </p>
-        <p style="margin-top: 15px; font-size: 14px; color: #d0f0e0;">
-          &copy; 2025 Resume Analyzer. All Rights Reserved.
-        </p>
-      </div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacypolicy">Privacy Policy</a>
+    <a href="/faq">FAQs</a>
+    <a href="/blog">Blog</a>
+  </div>
 
-      <!-- Column 2: Links + Contact -->
-      <div style="flex:1; min-width:250px;">
-        <h3 style="margin-bottom: 15px;">Quick Links</h3>
-        <ul style="list-style:none; padding:0; line-height:2;">
-          <li><a href="/" style="color:white; text-decoration:none;">Home</a></li>
-          <li><a href="/about" style="color:white; text-decoration:none;">About</a></li>
-          <li><a href="/contact" style="color:white; text-decoration:none;">Contact</a></li>
-          <li><a href="/privacypolicy" style="color:white; text-decoration:none;">Privacy Policy</a></li>
-        </ul>
+  <!-- About Content -->
+  <div class="container">
+    <h1>About Resume Analyzer</h1>
+    <p>
+      Resume Analyzer is a free <strong>AI-powered tool</strong> designed to help students and job seekers improve their resumes with instant feedback.
+      In today’s competitive job market, a well-structured resume can make the difference between getting noticed or overlooked.
+    </p>
 
-        <h3 style="margin:20px 0 10px 0;">Connect with us</h3>
-        <div style="display:flex; gap:15px;">
-          <a href="https://linkedin.com" target="_blank" style="color:white; font-size:20px;">🔗</a>
-          <a href="https://twitter.com" target="_blank" style="color:white; font-size:20px;">🐦</a>
-          <a href="https://instagram.com" target="_blank" style="color:white; font-size:20px;">📸</a>
-        </div>
-      </div>
+    <h2>🎯 Our Mission</h2>
+    <p>
+      Our mission is simple: to empower students, graduates, and professionals by giving them the tools they need to land their dream jobs. 
+      We believe that technology can bridge the gap between applicants and opportunities.
+    </p>
 
-      <!-- Optional small footer note -->
-      <div style="width:100%; text-align:center; margin-top:20px; font-size:14px; color:#d0f0e0;">
-        Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
-      </div>
-    </footer>
+    <h2>⚙️ How It Works</h2>
+    <p>
+      The tool analyzes resumes uploaded in <strong>PDF format</strong>, highlighting strengths, weaknesses, and providing actionable suggestions. 
+      It also checks for industry-specific keywords, clarity, and overall readability.
+    </p>
+
+    <h2>👨‍💻 Who Created Resume Analyzer?</h2>
+    <p>
+      Resume Analyzer was created by <strong>Bhanu Sesha Sai</strong>, a Computer Science (AI/ML) student passionate about building tools that solve real-world problems.
+      This project is aimed at helping students and job seekers boost their confidence in the hiring process.
+    </p>
+
+    <h2>🔒 Privacy First</h2>
+    <p>
+      We value your privacy. Resumes are only analyzed temporarily and are not stored or shared with third parties. 
+      For more details, please check our <a href="/privacypolicy" style="color:#4CAF50; font-weight:bold;">Privacy Policy</a>.
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="flex:1; min-width:250px;">
+      <h3>What is Resume Analyzer?</h3>
+      <p style="line-height: 1.5; color: #e0f7fa;">
+        Resume Analyzer is a free AI-powered tool that helps students and job seekers improve their resumes. Upload your PDF and get instant feedback to land your dream job.
+      </p>
+      <p style="margin-top: 15px; font-size: 14px; color: #d0f0e0;">&copy; 2025 Resume Analyzer. All Rights Reserved.</p>
+    </div>
+
+    <div style="flex:1; min-width:250px;">
+      <h3>Quick Links</h3>
+      <ul style="list-style:none; padding:0; line-height:2;">
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/privacypolicy">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Particles Init -->
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 70 },
+        "size": { "value": 3 },
+        "move": { "speed": 2 },
+        "line_linked": { "enable": true, "opacity": 0.3 },
+        "color": { "value": "#ffffff" }
+      },
+      "interactivity": {
+        "events": { "onhover": { "enable": true, "mode": "repulse" } }
+      }
+    });
+  </script>
 </body>
 </html>

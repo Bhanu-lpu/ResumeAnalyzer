@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog - AI Resume Analyzer</title>
+  <meta name="description" content="Read career tips, resume hacks, and AI insights to improve your chances of landing a job.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+
+  <!-- ✅ Same Styles as index.html -->
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: #e6edf3;
+    }
+
+    /* Background Particles */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: #0d0d0d;
+      overflow: hidden;
+    }
+    #particles-js canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      background: #4CAF50;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .navbar a:hover { color: #e0f7fa; }
+
+    /* Blog Container */
+    .container {
+      background: #161b22;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      max-width: 900px;
+      width: 90%;
+      margin: 100px auto;
+      z-index: 1;
+      position: relative;
+    }
+
+    h1 { text-align: center; margin-bottom: 10px; font-size: 32px; color:#58a6ff; }
+    p.sub-caption {
+      text-align: center;
+      font-size: 16px;
+      color: #c9d1d9;
+      margin-bottom: 30px;
+    }
+
+    /* Blog Cards */
+    .blog-card {
+      background: #1c1f26;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+      transition: transform 0.2s ease-in-out;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    .blog-card h2 {
+      color: #58a6ff;
+      margin-top: 0;
+    }
+    .blog-card p {
+      color: #c9d1d9;
+    }
+    .read-more {
+      display: inline-block;
+      margin-top: 10px;
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .read-more:hover { text-decoration: underline; }
+
+    /* Footer */
+    footer {
+      background: rgba(76, 175, 80, 0.95);
+      color: white;
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(6px);
+    }
+    footer h3 { margin-bottom: 15px; }
+    footer p, footer a { color: #e0f7fa; font-size: 14px; }
+    footer ul { list-style:none; padding:0; line-height:2; }
+    footer ul li a { color:white; text-decoration:none; }
+    footer ul li a:hover { text-decoration: underline; }
+  </style>
+
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348521072257318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Background Particles -->
+  <div id="particles-js"></div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacypolicy">Privacy Policy</a>
+    <a href="/faq">FAQs</a>
+    <a href="/blog">Blog</a>
+  </div>
+
+  <!-- Blog Section -->
+  <div class="container">
+    <h1>Our Blog</h1>
+    <p class="sub-caption">Career Tips, Resume Hacks & AI Insights</p>
+
+    <!-- Blog Post 1 -->
+    <div class="blog-card">
+      <h2>Top 5 Resume Mistakes That Stop You from Getting Hired</h2>
+      <p>Many job seekers lose opportunities because of simple resume errors. Learn the top mistakes and how to avoid them to land your dream job.</p>
+      <a href="/blog/resume-mistakes" class="read-more">Read More →</a>
+    </div>
+
+    <!-- Blog Post 2 -->
+    <div class="blog-card">
+      <h2>How to Make an ATS-Friendly Resume</h2>
+      <p>Recruiters use Applicant Tracking Systems (ATS) to filter resumes. Find out how to structure your resume so that it passes ATS screening.</p>
+      <a href="/blog/ats-friendly-resume" class="read-more">Read More →</a>
+    </div>
+
+    <!-- Blog Post 3 -->
+    <div class="blog-card">
+      <h2>Resume Tips for Freshers Applying for Their First Job</h2>
+      <p>Freshers often wonder what to add in their resume without work experience. Here are proven tips to make your resume stand out.</p>
+      <a href="/blog/fresher-resume-tips" class="read-more">Read More →</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="flex:1; min-width:250px;">
+      <h3>What is Resume Analyzer?</h3>
+      <p>Resume Analyzer is a free AI-powered tool that helps students and job seekers improve their resumes. Upload your PDF and get instant feedback on strengths, weaknesses, and actionable suggestions.</p>
+      <p style="margin-top: 15px; font-size: 14px;">&copy; 2025 Resume Analyzer. All Rights Reserved.</p>
+    </div>
+    <div style="flex:1; min-width:250px;">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+        <li><a href="/privacypolicy">Privacy Policy</a></li>
+      </ul>
+      <h3 style="margin:20px 0 10px 0;">Connect with us</h3>
+      <div style="display:flex; gap:15px;">
+        <a href="www.linkedin.com/in/bhanu-sesha-sai-" target="_blank">🔗</a>
+        <a href="https://twitter.com" target="_blank">🐦</a>
+        <a href="https://instagram.com" target="_blank">📸</a>
+      </div>
+    </div>
+    <div style="width:100%; text-align:center; margin-top:20px; font-size:14px;">
+      Built with ❤️ by <strong>Bhanu Sesha Sai</strong>
+    </div>
+  </footer>
+
+  <!-- Init Particles -->
+  <script>
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 80 },
+      "size": { "value": 3 },
+      "move": { "speed": 2 },
+      "line_linked": { "enable": true, "opacity": 0.3 },
+      "color": { "value": "#ffffff" }
+    },
+    "interactivity": {
+      "events": { "onhover": { "enable": true, "mode": "repulse" } }
+    }
+  });
+  </script>
+</body>
+</html>
