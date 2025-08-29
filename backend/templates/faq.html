@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQs – Resume Analyzer</title>
+  <meta name="description" content="Frequently asked questions about Resume Analyzer: how it works, privacy, accuracy, supported formats, ATS compatibility, and more." />
+  <link rel="canonical" href="https://resumeanalyzer-ubqj.onrender.com/faq" />
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="FAQs – Resume Analyzer" />
+  <meta property="og:description" content="Answers about how Resume Analyzer works, privacy, accuracy, supported formats, ATS, pricing, and support." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://resumeanalyzer-ubqj.onrender.com/faq" />
+
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #0f172a;
+      --muted: #94a3b8;
+      --text: #e2e8f0;
+      --primary: #60a5fa;
+      --ring: #1d4ed8;
+      --border: #23314f;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: linear-gradient(180deg, var(--bg), #0a0f1a 60%);
+      color: var(--text);
+    }
+    .container { max-width: 980px; margin: 0 auto; padding: 24px; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 24px; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+    .logo { width: 40px; height: 40px; border-radius: 12px; background: radial-gradient(circle at 30% 30%, #60a5fa, #22d3ee, #1e293b); box-shadow: 0 10px 30px rgba(96,165,250,.3); }
+    nav a { color: var(--muted); text-decoration: none; margin-left: 16px; font-weight: 600; }
+    nav a:hover, nav a[aria-current="page"] { color: var(--text); }
+
+    .hero {
+      background: linear-gradient(180deg, rgba(96,165,250,.08), rgba(34,211,238,.05));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, .6), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .hero h1 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 8px; }
+    .hero p { margin: 0; color: var(--muted); font-size: 16px; }
+
+    .faq-list { margin-top: 28px; display: grid; gap: 12px; }
+    .faq-item {
+      background: linear-gradient(180deg, rgba(15,23,42,.9), rgba(15,23,42,.6));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .faq-button {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      color: var(--text);
+      border: 0;
+      padding: 18px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      cursor: pointer;
+    }
+    .faq-button:focus { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 14px; }
+    .faq-icon { flex: none; width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid var(--border); border-radius: 8px; }
+    .faq-panel { padding: 0 20px 18px; color: var(--muted); display: none; }
+    .faq-panel.open { display: block; }
+
+    .tip {
+      margin-top: 24px;
+      font-size: 14px; color: var(--muted);
+      padding: 12px 16px; border: 1px dashed var(--border); border-radius: 12px;
+      background: rgba(96,165,250,.05);
+    }
+
+    footer { margin: 40px 0 16px; text-align: center; color: var(--muted); font-size: 13px; }
+    .small { font-size: 13px; color: var(--muted); }
+
+    @media (max-width: 600px) {
+      nav { display: none; }
+      .container { padding: 16px; }
+      .faq-button { font-size: 15px; }
+    }
+  </style>
+
+  <!-- FAQPage Schema for rich results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is Resume Analyzer?",
+        "acceptedAnswer": {"@type": "Answer","text": "Resume Analyzer is an AI-powered tool that scans your resume and provides feedback on strengths, weaknesses, keywords, formatting, and ATS compatibility."}
+      },
+      {
+        "@type": "Question",
+        "name": "How does Resume Analyzer work?",
+        "acceptedAnswer": {"@type": "Answer","text": "It uses natural language processing and machine learning to analyze text, structure, and formatting, then compares your resume against job market standards to suggest improvements."}
+      },
+      {
+        "@type": "Question",
+        "name": "Is Resume Analyzer free to use?",
+        "acceptedAnswer": {"@type": "Answer","text": "Yes, the basic analysis is free. Premium features may be introduced later for deeper insights."}
+      },
+      {
+        "@type": "Question",
+        "name": "What file formats are supported?",
+        "acceptedAnswer": {"@type": "Answer","text": "PDF, DOC, and DOCX are supported. A clean, text-based PDF is recommended for best results."}
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data secure?",
+        "acceptedAnswer": {"@type": "Answer","text": "We process resumes securely and do not sell your data. Files are handled only for analysis and not stored longer than necessary. See our Privacy Policy for details."}
+      },
+      {
+        "@type": "Question",
+        "name": "Does it check grammar and spelling?",
+        "acceptedAnswer": {"@type": "Answer","text": "Yes, common grammar, spelling, and readability issues are flagged along with suggestions to improve clarity and impact."}
+      },
+      {
+        "@type": "Question",
+        "name": "Can Resume Analyzer guarantee a job?",
+        "acceptedAnswer": {"@type": "Answer","text": "No tool can guarantee employment. Our analysis helps you present your skills better; outcomes depend on your experience and the employer."}
+      },
+      {
+        "@type": "Question",
+        "name": "Who should use Resume Analyzer?",
+        "acceptedAnswer": {"@type": "Answer","text": "Students, freshers, and working professionals who want to optimize their resumes for recruiters and ATS systems."}
+      },
+      {
+        "@type": "Question",
+        "name": "What makes this different from other tools?",
+        "acceptedAnswer": {"@type": "Answer","text": "We focus on actionable insights like quantifiable achievements, keyword coverage for roles, formatting fixes, and ATS compatibility tips."}
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is the feedback?",
+        "acceptedAnswer": {"@type": "Answer","text": "Feedback is AI-generated using best practices and public hiring standards. Use it as guidance along with your own judgment or mentor input."}
+      },
+      {
+        "@type": "Question",
+        "name": "Do you store my resume?",
+        "acceptedAnswer": {"@type": "Answer","text": "By default we avoid long-term storage. If we retain a file to improve results, it is anonymized and handled per our Privacy Policy."}
+      },
+      {
+        "@type": "Question",
+        "name": "Is there customer support?",
+        "acceptedAnswer": {"@type": "Answer","text": "Yes. Use the Contact page to report issues or request improvements. We typically respond within 48 hours on business days."}
+      }
+    ]
+  }
+  </script>
+  </style>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348521072257318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="brand" href="/">
+        <span class="logo" aria-hidden="true"></span>
+        <strong>Resume Analyzer</strong>
+      </a>
+      <nav aria-label="Primary">
+        <a href="/" >Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/faq" aria-current="page">FAQs</a>
+      </nav>
+    </header>
+
+    <section class="hero" aria-labelledby="faqTitle">
+      <h1 id="faqTitle">Frequently Asked Questions</h1>
+      <p>Everything you need to know about how the Resume Analyzer works, data privacy, supported formats, accuracy, and more.</p>
+    </section>
+
+    <section class="faq-list" id="faqs">
+      <!-- 1 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q1" id="b1">
+          <span>1) What is Resume Analyzer?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q1" role="region" aria-labelledby="b1">
+          <p>Resume Analyzer is an AI-powered tool that evaluates your resume for clarity, structure, keywords, and ATS compatibility, then shares clear, prioritized suggestions to improve it.</p>
+        </div>
+      </article>
+      
+      <!-- 2 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q2" id="b2">
+          <span>2) How does Resume Analyzer work?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q2" role="region" aria-labelledby="b2">
+          <p>We use natural language processing (NLP) and machine learning to parse your resume, detect skills and achievements, assess formatting and readability, and map keywords to common job descriptions. You get practical advice like “add quantifiable results” or “include tools used.”</p>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q3" id="b3">
+          <span>3) Is Resume Analyzer free to use?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q3" role="region" aria-labelledby="b3">
+          <p>Yes, the basic analysis is free. We may introduce optional premium features later for deeper insights like role-specific keyword matching and resume versioning.</p>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q4" id="b4">
+          <span>4) What file formats are supported?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q4" role="region" aria-labelledby="b4">
+          <p>We support PDF, DOC, and DOCX files. For the most accurate parsing, a simple text-based PDF with standard fonts and minimal graphics works best.</p>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q5" id="b5">
+          <span>5) Is my data safe?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q5" role="region" aria-labelledby="b5">
+          <p>Yes. Files are transmitted over HTTPS and processed securely. We do not sell personal data. Refer to our <a href="/privacy">Privacy Policy</a> for collection and retention details.</p>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q6" id="b6">
+          <span>6) Does it check grammar and spelling?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q6" role="region" aria-labelledby="b6">
+          <p>Yes. The analyzer highlights common grammar, spelling, and style issues and offers suggestions to make your resume clearer and more professional.</p>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q7" id="b7">
+          <span>7) Can Resume Analyzer guarantee me a job?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q7" role="region" aria-labelledby="b7">
+          <p>No tool can guarantee employment. Our goal is to help you present your experience more effectively so you can perform better in screenings.</p>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q8" id="b8">
+          <span>8) Who should use Resume Analyzer?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q8" role="region" aria-labelledby="b8">
+          <p>Students, fresh graduates, and professionals aiming to optimize resumes for internships, campus placements, or job transitions will benefit most.</p>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q9" id="b9">
+          <span>9) What makes this different from other tools?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q9" role="region" aria-labelledby="b9">
+          <p>We focus on actionable, specific advice—like adding metrics to achievements, aligning keywords with role descriptions, and fixing layout issues that can confuse ATS systems.</p>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q10" id="b10">
+          <span>10) How accurate is the feedback?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q10" role="region" aria-labelledby="b10">
+          <p>Feedback is generated using widely accepted hiring and resume-writing best practices. Treat it as guidance and adapt it to your background and target roles.</p>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q11" id="b11">
+          <span>11) Do you store my resume?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q11" role="region" aria-labelledby="b11">
+          <p>We avoid long-term storage unless required for improving service quality. If retained, files are anonymized and protected. Read more in the <a href="/privacy">Privacy Policy</a>.</p>
+        </div>
+      </article>
+
+      <!-- 12 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q12" id="b12">
+          <span>12) What are the limitations?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q12" role="region" aria-labelledby="b12">
+          <p>Highly stylized resumes with complex graphics or tables may parse imperfectly. We recommend a clean, single-column layout for the best analysis.</p>
+        </div>
+      </article>
+
+      <!-- 13 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q13" id="b13">
+          <span>13) Is the tool ATS-friendly?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q13" role="region" aria-labelledby="b13">
+          <p>Yes. Our suggestions emphasize ATS readability—clear headings, standard fonts, and strong keyword coverage so automated screeners can parse your resume.</p>
+        </div>
+      </article>
+
+      <!-- 14 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q14" id="b14">
+          <span>14) Is there a premium version?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q14" role="region" aria-labelledby="b14">
+          <p>We may add optional premium features like role-targeted scoring, cover letter checks, and tailored keyword suggestions based on job postings.</p>
+        </div>
+      </article>
+
+      <!-- 15 -->
+      <article class="faq-item">
+        <button class="faq-button" aria-expanded="false" aria-controls="q15" id="b15">
+          <span>15) How can I contact support?</span>
+          <span class="faq-icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq-panel" id="q15" role="region" aria-labelledby="b15">
+          <p>Use the <a href="/contact">Contact</a> page to report issues or request features. Please include your file type and a brief description of the problem.</p>
+        </div>
+      </article>
+    </section>
+
+    <p class="tip small">AdSense tip: Place ads only on content-rich pages like this one. Avoid showing ads on login, error, success, or under-construction screens.</p>
+
+    <footer>
+      © <span id="year"></span> Resume Analyzer. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    // Accordion behavior with proper ARIA state management
+    const buttons = document.querySelectorAll('.faq-button');
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.classList.toggle('open');
+        // Toggle icon
+        const icon = btn.querySelector('.faq-icon');
+        if (icon) icon.textContent = expanded ? '+' : '−';
+      });
+    });
+
+    // current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

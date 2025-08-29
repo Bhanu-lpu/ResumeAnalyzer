@@ -114,6 +114,10 @@ def chat():
     response = model.generate_content(user_msg)
 
     return jsonify({"reply": response.text})
+@app.route("/faq")
+def faq():
+    return render_template("faq.html")
+
 
 
 @app.route("/test", methods=["POST"])
