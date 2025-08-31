@@ -29,7 +29,55 @@
 
 
 <style>
-  
+  /* Section Styling */
+section {
+  background: rgba(0,0,0,0.6);  /* semi-dark transparent look */
+  border-radius: 15px;
+  padding: 40px 25px;
+  margin: 40px auto;
+  max-width: 1000px;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.7);
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #4cafef; /* light blue accent */
+  text-align: center;
+}
+
+section p, 
+section li {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #ddd;
+}
+
+section ul {
+  list-style: none;
+  padding: 0;
+}
+
+section ul li {
+  padding-left: 1.5rem;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+section ul li::before {
+  content: "✔";
+  color: #4cafef;
+  position: absolute;
+  left: 0;
+}
+
 /* Floating chat icon */
 #chat-icon {
             position: fixed;
@@ -372,6 +420,49 @@ button:hover { background: #45a049; }
     <button onclick="sendMessage()">Send</button>
   </div>
 </div>
+<section>
+          <h2>How Resume Analyzer Works</h2>
+          <ol>
+            <li><strong>Upload Your Resume:</strong> Select your PDF file securely from your device.</li>
+            <li><strong>AI Analysis:</strong> Our tool scans your resume for formatting, keywords, and clarity.</li>
+            <li><strong>Get Feedback:</strong> Receive instant suggestions to improve your chances of getting hired.</li>
+          </ol>
+        </section>
+
+        <section>
+          <h2>Why Use Resume Analyzer?</h2>
+          <ul>
+            <li>✔ ATS (Applicant Tracking System) friendly feedback</li>
+            <li>✔ 100% Free for students & job seekers</li>
+            <li>✔ Instant, AI-powered suggestions</li>
+            <li>✔ Improve your chances of getting interviews</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Pro Tips for Writing a Job-Winning Resume</h2>
+          <p>Did you know that most recruiters spend less than 10 seconds reading a resume? 
+          To stand out, keep your resume clear, concise, and relevant. Use strong action verbs, 
+          include measurable achievements, and customize your resume for every job application. 
+          Avoid long paragraphs — instead, use bullet points for skills and experiences. 
+          A well-formatted resume not only makes you look professional but also helps Applicant 
+          Tracking Systems (ATS) recognize your skills more effectively.</p>
+        </section>
+
+        <section>
+          <h2>Frequently Asked Questions</h2>
+          <p><strong>Q: Is Resume Analyzer free?</strong><br>Yes, it’s completely free for all users.</p>
+          <p><strong>Q: Do you store my resume?</strong><br>No, your file is deleted after analysis for privacy.</p>
+          <p><a href="/faq">View More FAQs →</a></p>
+        </section>
+
+        <section>
+          <h2>Start Improving Your Resume Today</h2>
+          <p>Join thousands of students and job seekers who already improved their resumes with 
+          our AI-powered tool. Upload your resume now and take the first step toward your dream job!</p>
+          <a href="#resumeForm" class="btn">Analyze My Resume</a>
+        </section>
+
 
 <script>
 function toggleChat() {
@@ -652,11 +743,27 @@ tour.addStep({
     { text: 'Next', action: tour.next }
   ]
 });
+tour.addStep({
+  text: 'Click "FAQs" to check frequently asked questions.',
+  attachTo: { element: '.navbar a[href="/faq"]', on: 'bottom' },
+  buttons: [
+    { text: 'Back', action: tour.back },
+    { text: 'Next', action: tour.next }
+  ]
+});
+tour.addStep({
+  text: 'Click "Blog" to Know more about the resume.',
+  attachTo: { element: '.navbar a[href="/blog"]', on: 'bottom' },
+  buttons: [
+    { text: 'Back', action: tour.back },
+    { text: 'Next', action: tour.next }
+  ]
+});
 
 
 tour.addStep({
     id: 'step1',
-    text: 'Welcome to Resume Analyzer! Let us take a quick tour.',
+    text: 'Welcome to Resume Analyzer!',
     buttons: [{ text: 'Next', action: tour.next }]
 });
 tour.addStep({
