@@ -60,6 +60,51 @@ def extract_text_from_pdf(file):
 
     return text
 
+# ------------------------------
+# ✅ ATS Analyzer Function
+# ------------------------------
+def ats_analyze_resume(resume_text, role="Software Engineer"):
+    score = 0
+    feedback = []
+
+    # ✅ 1. Check for key resume sections
+    sections = ["Education", "Skills", "Experience", "Projects"]
+    for section in sections:
+        if section.lower() in resume_text.lower():
+            score += 10
+        else:
+            feedback.append(f"Missing section: {section}")
+
+    # ✅ 2. Keyword check (example role-specific keywords)
+    job_keywords = {
+        "Software Engineer": ["Python", "Java", "SQL", "API", "Machine Learning"],
+        "Data Scientist": ["Python", "Statistics", "Machine Learning", "Pandas", "Deep Learning"],
+        "Web Developer": ["HTML", "CSS", "JavaScript", "React", "Node.js"]
+    }
+
+    keywords = job_keywords.get(role, ["Teamwork", "Communication", "Problem Solving"])
+    missing_keywords = [kw for kw in keywords if kw.lower() not in resume_text.lower()]
+
+    if missing_keywords:
+        feedback.append(f"Missing keywords: {', '.join(missing_keywords)}")
+    else:
+        score += 20
+
+    # ✅ 3. Formatting checks (avoid images/tables)
+    if len(resume_text.split()) < 200:
+        feedback.append("Your resume seems too short. Add more details.")
+    else:
+        score += 10
+
+    # ✅ Final score capped at 100
+    final_score = min(score, 100)
+
+    return {
+        "score": final_score,
+        "feedback": feedback
+    }
+
+
 @app.route("/analyze", methods=["POST"])
 def analyze():
     role = request.form.get("role", "Software Engineer")
@@ -93,6 +138,24 @@ Use short sentences or bullet points suitable for students.
 
     except Exception as e:
         return jsonify({"analysis": f"❌ Error generating feedback: {str(e)}"})
+    
+
+@app.route("/ats", methods=["POST"])
+def ats():
+    role = request.form.get("role", "Software Engineer")
+    file = request.files.get("resume")
+
+    if not file:
+        return jsonify({"error": "❌ No file uploaded!"})
+
+    resume_text = extract_text_from_pdf(file)
+    if not resume_text.strip():
+        return jsonify({"error": "❌ No text found in PDF!"})
+
+    result = ats_analyze_resume(resume_text, role)
+
+    return jsonify(result)
+
     
 @app.route("/api/announcements")
 def api_announcements():

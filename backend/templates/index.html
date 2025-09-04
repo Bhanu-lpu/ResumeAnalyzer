@@ -15,6 +15,8 @@
 
   gtag('config', 'G-27LRBFJL0Q');
 </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348521072257318"
+     crossorigin="anonymous"></script>
 
 <!-- ✅ Add Favicon -->
 <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -40,6 +42,8 @@ section {
   box-shadow: 0 4px 20px rgba(0,0,0,0.5);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+#atsResult { background: #f0f8ff; border-left: 6px solid #00bcd4; }
+
 
 section:hover {
   transform: translateY(-5px);
@@ -363,8 +367,7 @@ button:hover { background: #45a049; }
       #chat-box button { width: 25%; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
 @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 </style>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348521072257318"
-     crossorigin="anonymous"></script>
+    
 </head>
 <body>
     <!-- Particles Background -->
@@ -394,10 +397,18 @@ button:hover { background: #45a049; }
             <input type="file" id="resume" accept=".pdf" style="display:none;" />
 
             <div class="progress-bar" id="progress"></div>
-            <button type="submit">Analyze Resume</button>
+            <button type="submit" id="aiAnalyzeBtn">AI Analysis</button>
+            <button type="button" id="atsAnalyzeBtn">ATS Analysis</button>
             <button type="button" id="clearBtn">Clear</button>
             <button type="button" id="downloadBtn">Download Feedback as PDF</button>
+
         </form>
+        <!-- Results Section -->
+<div id="results" style="margin-top:40px; display:none;">
+  <h2 style="color:#58a6ff;">AI Resume Analysis</h2>
+  <div id="results-content" style="background:#161b22; padding:20px; border-radius:12px;"></div>
+</div>
+
 
         <div id="message"></div>
         <div id="result">
@@ -405,6 +416,12 @@ button:hover { background: #45a049; }
             <div id="strengths" class="section-card strengths"><h2>🌟 Strengths</h2></div>
             <div id="weaknesses" class="section-card weaknesses"><h2>⚠️ Weaknesses</h2></div>
             <div id="suggestions" class="section-card suggestions"><h2>💡 Suggestions</h2></div>
+            <div id="atsResult" class="section-card suggestions" style="display:none;">
+  <h2>📊 ATS Compatibility</h2>
+  <p id="atsScore"></p>
+  <ul id="atsFeedback"></ul>
+</div>
+
             <!-- 📢 Announcements Box -->
 <div class="announcements-box">
   <h3>📢 Latest Announcements</h3>
@@ -438,6 +455,33 @@ button:hover { background: #45a049; }
             <li>✔ Improve your chances of getting interviews</li>
           </ul>
         </section>
+        <section>
+          <h2>Who Can Benefit?</h2>
+          <p><strong>Students & Freshers:</strong> Create an impressive resume even with limited experience.</p>
+          <p><strong>Job Seekers:</strong> Optimize your resume to pass ATS filters and stand out to recruiters.</p>
+          <p><strong>Career Changers:</strong> Highlight transferable skills for your new career path.</p>
+          <p><strong>International Applicants:</strong> Adapt your resume to match global hiring standards.</p>
+        </section>
+
+        <!-- ✅ Added Section: Why ATS Optimization Matters -->
+        <section>
+          <h2>Why ATS Optimization Matters in 2025</h2>
+          <p>Over 70% of employers now rely on Applicant Tracking Systems (ATS) to manage job applications. Many qualified candidates get rejected not because of lack of skills, but because their resumes are not formatted or keyword-optimized for ATS. Our AI Resume Analyzer ensures your resume gets through these filters by checking formatting, keyword relevance, and readability. By making small improvements, you increase your chances of being shortlisted for interviews.</p>
+        </section>
+
+        <!-- ✅ Expanded FAQ Section -->
+        <section>
+          <h2>Frequently Asked Questions (Extended)</h2>
+          <p><strong>Q: What is an ATS Resume Analyzer?</strong><br>It’s a tool that checks if your resume can pass automated screening systems used by employers.</p>
+          <p><strong>Q: Is this tool free?</strong><br>Yes, completely free for unlimited use.</p>
+          <p><strong>Q: Do you store my resume?</strong><br>No, your file is processed securely and never stored.</p>
+          <p><strong>Q: Can this guarantee me a job?</strong><br>No tool can guarantee a job, but optimizing your resume increases interview chances significantly.</p>
+          <p><strong>Q: How often should I analyze my resume?</strong><br>You can use this tool every time you apply for a new job role to tailor your resume effectively.</p>
+          <p><strong>Q: Is Resume Analyzer free?</strong><br>Yes, it’s completely free for all users.</p>
+          <p><strong>Q: Do you store my resume?</strong><br>No, your file is deleted after analysis for privacy.</p>
+          <p><a href="/faq">View More FAQs →</a></p>
+        </section>
+
 
         <section>
           <h2>Pro Tips for Writing a Job-Winning Resume</h2>
@@ -449,12 +493,6 @@ button:hover { background: #45a049; }
           Tracking Systems (ATS) recognize your skills more effectively.</p>
         </section>
 
-        <section>
-          <h2>Frequently Asked Questions</h2>
-          <p><strong>Q: Is Resume Analyzer free?</strong><br>Yes, it’s completely free for all users.</p>
-          <p><strong>Q: Do you store my resume?</strong><br>No, your file is deleted after analysis for privacy.</p>
-          <p><a href="/faq">View More FAQs →</a></p>
-        </section>
 
         <section>
           <h2>Start Improving Your Resume Today</h2>
@@ -821,6 +859,74 @@ if (!localStorage.getItem("tourDone")) {
 
 // Button to manually start tour
 document.getElementById('startTourBtn').addEventListener('click', () => { tour.start(); });
+
+/* ATS Analysis */
+document.getElementById('atsAnalyzeBtn').addEventListener('click', async () => {
+    const role = document.getElementById('role').value || "Software Engineer";
+    const file = fileInput.files[0];
+    if (!file) { showMessage("Please upload a PDF resume!", "error"); return; }
+
+    const formData = new FormData();
+    formData.append("role", role);
+    formData.append("resume", file);
+
+    document.getElementById('loading').style.display = "block";
+    document.getElementById('atsResult').style.display = "none";
+
+    try {
+        const response = await fetch('/ats', { method: 'POST', body: formData });
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        const data = await response.json();
+
+        if (data.error) {
+            showMessage(data.error, "error");
+            return;
+        }
+
+        document.getElementById('atsResult').style.display = "block";
+        document.getElementById('atsScore').innerText = `ATS Score: ${data.score}/100`;
+
+        let feedbackList = document.getElementById('atsFeedback');
+        feedbackList.innerHTML = "";
+        if (data.feedback && data.feedback.length > 0) {
+            data.feedback.forEach(item => {
+                let li = document.createElement("li");
+                li.innerText = item;
+                feedbackList.appendChild(li);
+            });
+        } else {
+            feedbackList.innerHTML = "<li>No issues found ✅</li>";
+        }
+
+        showMessage("✅ ATS Analysis completed!", "success");
+
+    } catch (error) {
+        showMessage("❌ Error analyzing resume: " + error, "error");
+    } finally {
+        document.getElementById('loading').style.display = "none";
+    }
+});
+document.getElementById("resume-form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  let formData = new FormData(this);
+
+  let response = await fetch("/analyze", {
+    method: "POST",
+    body: formData
+  });
+
+  let data = await response.json();
+
+  // Show the results div
+  document.getElementById("results").style.display = "block";
+
+  // Insert AI response (formatted with line breaks)
+  document.getElementById("results-content").innerHTML = data.analysis
+    .replace(/\n/g, "<br>"); 
+});
+
+
 </script>
 </body>
 </html>
